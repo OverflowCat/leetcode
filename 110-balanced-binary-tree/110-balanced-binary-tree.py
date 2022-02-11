@@ -4,6 +4,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
         def height(node: Optional[TreeNode]) -> int:
@@ -13,5 +14,9 @@ class Solution:
             rheight = height(node.right)
             if lheight != -1 and rheight != -1 and abs(rheight - lheight) <= 1:
                 return max(rheight, lheight) + 1
-            return -1
-        return height(root) != -1
+            raise
+        try:
+            height(root)
+            return True
+        except:
+            return False
