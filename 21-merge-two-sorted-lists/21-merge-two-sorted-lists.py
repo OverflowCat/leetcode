@@ -13,13 +13,7 @@ class Solution:
         cur2 = list2
         head = ListNode()
         cur = head
-        while cur1 is not None or cur2 is not None:
-            if cur1 is None:
-                cur.next = cur2
-                break
-            if cur2 is None:
-                cur.next = cur1
-                break
+        while True:
             if cur1.val == cur2.val:
                 cur.next = ListNode(cur1.val)
                 cur = cur.next
@@ -33,4 +27,10 @@ class Solution:
                 cur.next = ListNode(cur2.val)
                 cur2 = cur2.next
             cur = cur.next
+            if cur1 is None:
+                cur.next = cur2
+                break
+            if cur2 is None:
+                cur.next = cur1
+                break
         return head.next
