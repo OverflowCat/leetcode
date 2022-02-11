@@ -11,12 +11,7 @@ class Solution:
                 return 0
             lheight = height(node.left)
             rheight = height(node.right)
-            if lheight != -1 and rheight != -1:
-                if rheight == lheight:
-                    return rheight + 1
-                if rheight - lheight == 1:
-                    return rheight + 1
-                if rheight - lheight == -1:
-                    return lheight + 1
+            if lheight != -1 and rheight != -1 and abs(rheight - lheight) <= 1:
+                return max(rheight, lheight) + 1
             return -1
         return height(root) != -1
