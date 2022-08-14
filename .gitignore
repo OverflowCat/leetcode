@@ -1,2 +1,7 @@
 *.exe
 *.pdb
+*.o
+*.d
+*.bin
+Cargo.lock
+target/
