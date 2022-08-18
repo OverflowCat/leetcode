@@ -14,45 +14,20 @@ fn smallest_number(mut pattern: String) -> String {
         }
     };
     let mut d_start: Option<usize> = None;
-    for (i, b) in pattern.bytes().enumerate() {
-        match b {
-            b'D' => {
+    pattern
+        .bytes()
+        .enumerate()
+        .for_each(|(i, b)| match (d_start, b) {
+            (_, b'D') => {
                 if d_start.is_none() {
                     d_start = Some(i);
                 }
             }
-            _ => {
-                if d_start.is_some() {
-                    partial_rev(&mut res, d_start.unwrap(), i);
-                    d_start = None;
-                }
+            (Some(start), _) => {
+                partial_rev(&mut res, start, i);
+                d_start = None;
             }
-        }
-    }
+            _ => {}
+        });
     res.iter().map(|x| x.to_string()).collect()
 }
-
-/* fn smallest_number(pattern: String) -> String {
-    let mut is_used = [false; 10];
-    let mut result: [u8; 9];
-    let mut top = 0usize;
-    pattern.bytes().for_each(|b| {
-        let min_not_used = {
-            let mut min = 0;
-            for i in b + 1..10 {
-                if !is_used[i] {
-                    min = i;
-                    break;
-                }
-            }
-            if b == 0 {
-
-            }
-            min
-        };
-
-    });
-
-}
- */
-// fn is_match(number: u32, ops: &Vec<bool>) -> bool {}
