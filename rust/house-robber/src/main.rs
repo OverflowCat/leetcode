@@ -1,9 +1,9 @@
 pub fn main() {
-    let res = rob(&vec![2, 7, 9, 3, 1], 0);
+    let res = Solution::rob(vec![2i32, 7, 9, 3, 1]);
     println!("{}", res);
-    let res = rob(&vec![1, 2, 3, 1], 0);
+    let res = Solution::rob(vec![1, 2i32, 3, 1]);
     println!("{}", res);
-    let res = rob(&vec![2, 1, 1, 2], 0);
+    let res = Solution::rob(vec![2i32, 1, 1, 2]);
     println!("{}", res);
     /*
     59 / 68 test cases passed.
@@ -12,13 +12,21 @@ pub fn main() {
     Output:
     3
     Expected:
+
     4
     */
 }
 
-pub fn dp(nums: &Vec<i32>, start: usize) -> i32 {
-    if start >= nums.len() {
-        return 0;
+struct Solution {}
+
+impl Solution {
+    pub fn rob(nums: Vec<i32>) -> i32 {
+        let (mut i, mut i1, mut i2) = (0, 0, 0);
+        for j in (0..nums.len()).rev() {
+            i = i1.max(i2 + nums[j]);
+            i2 = i1;
+            i1 = i;
+        }
+        i
     }
-    return dp(nums, start + 1).max(dp(nums, start + 2) + nums[start]);
 }
