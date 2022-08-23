@@ -1,7 +1,3 @@
-import enum
-from msilib import sequence
-
-
 num = "0001"
 
 count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]

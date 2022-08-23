@@ -5,14 +5,19 @@ class Solution:
         currEnergy = initialEnergy
         currExp = initialExperience
         for i, (eng, exp) in enumerate(zip(energy, experience)):
-            print(i, eng, exp, currEnergy, currExp)
-            if currEnergy < eng:
-                energyToIncrease += eng - currEnergy
-                currEnergy = eng
+            # print("i:", i, "currEnergy:", currEnergy, "currExp:", currExp)
+            if currEnergy <= eng:
+                d = eng - currEnergy + 1
+                # print("currEnergy:", currEnergy, "eng:", eng, "d:", d)
+                # print("d:", energyToIncrease)
+                energyToIncrease += d
+                currEnergy += d
+                # print("currEnergy:", currEnergy)
             currEnergy -= eng
-            if currExp < exp:
-                expToIncrease += exp - currExp
-                currExp = exp
+            if currExp <= exp:
+                d = exp - currExp + 1
+                expToIncrease += d
+                currExp += d
             currExp += exp
-            print(energyToIncrease, expToIncrease)
+            # print(energyToIncrease, expToIncrease)
         return energyToIncrease + expToIncrease
