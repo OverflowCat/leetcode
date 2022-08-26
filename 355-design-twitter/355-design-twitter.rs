@@ -1,5 +1,4 @@
 use std::{
-    cmp::Reverse,
     collections::{HashMap, HashSet},
     iter, vec,
 };
@@ -13,7 +12,6 @@ obj.follow(followerId, followeeId);
 obj.unfollow(followerId, followeeId);
 */
 
-#[derive(Hash, Eq, PartialEq, Debug)]
 struct Tweet {
     id: i32,
     seq: usize,
@@ -21,7 +19,7 @@ struct Tweet {
 
 #[derive(Default)]
 struct User {
-    tweets: HashSet<Tweet>,
+    tweets: Vec<Tweet>,
     followings: HashSet<i32>,
     followers: HashSet<i32>,
 }
@@ -54,7 +52,7 @@ impl Twitter {
     fn post_tweet(&mut self, user_id: i32, tweet_id: i32) {
         let user = self.users.entry(user_id).or_default();
         self.tweets_count += 1;
-        user.tweets.insert(Tweet {
+        user.tweets.push(Tweet {
             id: tweet_id,
             seq: self.tweets_count,
         });
