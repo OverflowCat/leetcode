@@ -72,8 +72,8 @@ impl Twitter {
                 })
                 .flatten()
                 .collect();
-            all_tweets.sort_by_key(|k| Reverse((*k).seq));
-            all_tweets.iter().map(|x| x.id).take(10).collect()
+            all_tweets.sort_by_key(|k| (*k).seq);
+            all_tweets.iter().rev().take(10).map(|x| x.id).collect()
         } else {
             vec![]
         }
