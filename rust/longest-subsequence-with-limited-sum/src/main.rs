@@ -1,7 +1,7 @@
 impl Solution {
     pub fn answer_queries(nums: Vec<i32>, queries: Vec<i32>) -> Vec<i32> {
         let mut nums = nums;
-        nums.push(1000);
+        // nums.push(1000);
         nums.sort_unstable();
         let mut sum: u64 = 0;
         let sums: Vec<u64> = nums
@@ -15,21 +15,9 @@ impl Solution {
         queries
             .iter()
             .map(|q| {
-                (match sums.binary_search(&(*q as u64 + 1)) {
-                    Ok(x) => {
-                        println!("a, x{}", x);
-                        if x > 0 {
-                            /*                             match sums.binary_search(&(*q as u64)) {
-                                Ok(y) => y + 1,
-                                Err(_) => x - 1,
-                            } */
-                            x
-                        } else {
-                            0
-                        }
-                    }
-
-                    Err(x) => {                    println!("b");x},
+                (match sums.binary_search(&(*q as u64)) {
+                    Ok(x) => x + 1,
+                    Err(x) => x,
                 }) as i32
             })
             .collect()
