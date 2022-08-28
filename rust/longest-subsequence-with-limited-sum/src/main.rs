@@ -1,6 +1,7 @@
 impl Solution {
     pub fn answer_queries(nums: Vec<i32>, queries: Vec<i32>) -> Vec<i32> {
         let mut nums = nums;
+        nums.push(1000);
         nums.sort_unstable();
         let mut sum: u64 = 0;
         let sums: Vec<u64> = nums
@@ -10,18 +11,25 @@ impl Solution {
                 sum
             })
             .collect();
+        println!("sums: {:?}", sums);
         queries
             .iter()
             .map(|q| {
                 (match sums.binary_search(&(*q as u64 + 1)) {
                     Ok(x) => {
+                        println!("a, x{}", x);
                         if x > 0 {
-                            x - 1
+                            /*                             match sums.binary_search(&(*q as u64)) {
+                                Ok(y) => y + 1,
+                                Err(_) => x - 1,
+                            } */
+                            x
                         } else {
                             0
                         }
                     }
-                    Err(x) => x,
+
+                    Err(x) => {                    println!("b");x},
                 }) as i32
             })
             .collect()
@@ -38,8 +46,11 @@ fn main() {
     println!("{:?}", Solution::answer_queries(vec![3, 4, 5, 2], vec![1]));
     println!("{:?}", Solution::answer_queries(vec![1], vec![1]));
     println!("{:?}", Solution::answer_queries(vec![2], vec![1]));
-    println!("{:?}", Solution::answer_queries(vec![1, 888], vec![999, 0, 1, 2, 887]));
     println!(
+        "{:?}",
+        Solution::answer_queries(vec![1, 888], vec![887, 888, 889])
+    );
+    /*println!(
         "{:?}",
         Solution::answer_queries(
             vec![
@@ -158,5 +169,5 @@ fn main() {
                 331274, 951627, 765374, 501389, 87937, 91774, 39333, 355584, 794047, 256658
             ]
         )
-    );
+    ); */
 }
