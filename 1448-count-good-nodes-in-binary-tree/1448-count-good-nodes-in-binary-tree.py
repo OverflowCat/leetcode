@@ -6,15 +6,15 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        def f(node: TreeNode, maxv: int) -> int:
-            sum = 0
-            if maxv <= node.val:
-                sum = 1
-            maxv = max(node.val, maxv)
-            if node.left is not None:
-                sum += f(node.left, maxv)
-            if node.right is not None:
-                sum += f(node.right, maxv)
-            # print("sum of", node.val, "is", sum)
-            return sum
-        return f(root, root.val)
+        self.sum = 0
+        self.f(root, root.val)
+        return self.sum
+    def f(self, node: TreeNode, maxv: int):
+        if maxv <= node.val:
+            self.sum += 1
+        maxv = max(node.val, maxv)
+        if node.left is not None:
+            self.f(node.left, maxv)
+        if node.right is not None:
+            self.f(node.right, maxv)
+        # print("sum of", node.val, "is", sum)
