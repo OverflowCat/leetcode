@@ -2,7 +2,12 @@ class Solution:
     def numsSameConsecDiff(self, n: int, k: int) -> List[int]:
         res = []
         if k == 0:
-            return [int(str(d) * n) for d in range(1, 10)]
+            def gen(d: int) -> int:
+                r = 0
+                for t in range(n):
+                    r = r * 10 + d
+                return r
+            return [gen(d) for d in range(1, 10)]
         def f(generated: int, last: int, remaining_digit_count: int):
             if remaining_digit_count == 0:
                 res.append(generated)
