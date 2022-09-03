@@ -1,9 +1,11 @@
 class Solution:
     def numsSameConsecDiff(self, n: int, k: int) -> List[int]:
-        res = set()
+        res = []
+        if k == 0:
+            return [int(str(d) * n) for d in range(1, 10)]
         def f(generated: int, last: int, remaining_digit_count: int):
             if remaining_digit_count == 0:
-                res.add(generated)
+                res.append(generated)
                 return
             next_num = last + k
             if next_num < 10:
