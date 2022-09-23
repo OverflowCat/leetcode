@@ -10,19 +10,19 @@ impl Solution {
                 .sum(),
             n => {
                 let k = k.min(n / 2);
-                let buy = vec![-std::f64::INFINITY; k + 1];
-                let sell = vec![-std::f64::INFINITY; k + 1];
-                buy[0] = -prices[0] as f64;
-                sell[0] = 0.;
+                let mut buy = vec![i32::MIN; k + 1];
+                let mut sell = vec![i32::MIN; k + 1];
+                buy[0] = -prices[0];
+                sell[0] = 0;
                 for i in 1..n {
-                    let p = prices[i] as f64;
+                    let p = prices[i];
                     buy[0] = buy[0].max(sell[0] - p);
                     for j in 1..k + 1 {
                         buy[j] = buy[j].max(sell[j] - p);
                         sell[j] = sell[j].max(buy[j - 1] + p);
                     }
                 }
-                match sell.iter().into_iter().reduce(f32::max) {
+                match sell.iter().max() {
                     Some(&x) => x,
                     None => 0,
                 }
