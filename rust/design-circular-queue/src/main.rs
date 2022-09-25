@@ -49,15 +49,23 @@ impl MyCircularQueue {
     }
 
     fn front(&self) -> i32 {
-        self.dat[self.ini]
+        if self.len == 0 {
+            -1
+        } else {
+            self.dat[self.ini]
+        }
     }
 
     fn rear(&self) -> i32 {
-        self.dat[if self.end == 0 {
-            self.siz - 1
+        if self.len == 0 {
+            -1
         } else {
-            self.end - 1
-        }]
+            self.dat[if self.end == 0 {
+                self.siz - 1
+            } else {
+                self.end - 1
+            }]
+        }
     }
 
     fn is_empty(&self) -> bool {
