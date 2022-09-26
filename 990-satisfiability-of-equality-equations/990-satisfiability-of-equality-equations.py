@@ -1,17 +1,15 @@
 class Solution:
     def equationsPossible(self, s):
-        p = [-1] * 26
+        p = {}
         def find(x):
-            return x if p[x] == -1 else find(p[x])
+            return x if x not in p else find(p[x])
         for e in s:
             if e[1] == '!': continue
-            i, j = ord(e[0]) - 97, ord(e[3]) - 97
-            if i == j: continue
-            x, y = find(i), find(j)
+            if e[0] == e[3]: continue
+            x, y = find(e[0]), find(e[3])
             if x != y: p[y] = x
         for e in s:
             if e[1] == '=': continue
-            i, j = ord(e[0]) - 97, ord(e[3]) - 97
-            if i == j: return False
-            if find(i) == find(j): return False
+            if e[0] == e[3]: return False
+            if find(e[0]) == find(e[3]): return False
         return True
