@@ -6,8 +6,9 @@ impl Solution {
         let (mut ans, mut min_diff) = (nums[0] + nums[1] + nums[2], MAX);
         for (i, &x) in nums.iter().enumerate() {
             let (mut ini, mut end) = (i + 1, last_i);
+            let mut sum = 0;
             while ini < end {
-                let sum = x + nums[ini] + nums[end];
+                sum = x + nums[ini] + nums[end];
                 let diff = (sum - target).abs();
                 if diff < min_diff {
                     ans = sum;
