@@ -1,7 +1,12 @@
 class Solution:
-    def checkIfPangram(self, sentence: str) -> bool:
+    def checkIfPangram(self, s: str) -> bool:
         n = 0
-        for c in sentence:
+        if len(s) > 40:
+            for c in s:
+                n |= (1 << ord(c) - 97)
+                if n == 67108863: return True
+            return False
+        for c in s:
             n |= (1 << ord(c) - 97)
-            if n == 67108863: return True
-        return False
+        return n == 67108863
+    
