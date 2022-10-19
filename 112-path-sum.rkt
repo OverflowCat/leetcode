@@ -1,11 +1,14 @@
-(define (has-path-sum node target)
+(
+    define (has-path-sum root target) 
     (if 
-        (or (tree-node? (tree-node-left node)) (tree-node (tree-node-right node)))
+        (not (tree-node? root)) #f 
         (
-            or
-            (and (tree-node? (tree-node-left  node)) (has-path-sum (tree-node-left  node) (- target (tree-node-val node))))
-            (and (tree-node? (tree-node-right node)) (has-path-sum (tree-node-right node) (- target (tree-node-val node))))
+            if (and (= (tree-node-val root) target) (and (false? (tree-node-left root)) (false? (tree-node-right root))))
+            #t
+            (or
+                (has-path-sum (tree-node-left root) (- target (tree-node-val root)))
+                (has-path-sum (tree-node-right root) (- target (tree-node-val root)))
+            )
         )
-        (equal? target (tree-node-val node))
     )
 )
