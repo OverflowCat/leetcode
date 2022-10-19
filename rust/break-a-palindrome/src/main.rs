@@ -1,10 +1,11 @@
 impl Solution {
     pub fn break_palindrome(mut palindrome: String) -> String {
         unsafe {
+            let length = palindrome.len();
             let p = palindrome.as_bytes_mut();
             let mut mid = b'_';
-            match p.len() {
-                0 | 1 => {
+            match length {
+                x if x < 2 => {
                     return String::new();
                 }
                 x if x % 2 == 1 => {
@@ -13,17 +14,17 @@ impl Solution {
                 }
                 _ => {}
             }
-            let mut index: Option<usize> = None;
-            for (i, &x) in p.iter().take(p.len() / 2).enumerate() {
-                if x != b'a' {
-                    index = Some(i);
+            let mut index = 114514;
+            for i in 0..length / 2 {
+                if p[i] != b'a' {
+                    index = i;
                     break;
                 }
             }
-            if let Some(i) = index {
-                p[i] = b'a';
-            } else {
+            if index == 114514 {
                 p[p.len() - 1] = b'b';
+            } else {
+                p[index] = b'a';
             }
             if mid != b'_' {
                 p[p.len() / 2] = mid;
