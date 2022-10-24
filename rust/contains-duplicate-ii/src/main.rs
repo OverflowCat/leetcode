@@ -1,8 +1,19 @@
+use std::collections::HashSet;
+
 impl Solution {
     pub fn contains_nearby_duplicate(nums: Vec<i32>, k: i32) -> bool {
-        let k = (1 + k as usize).min(nums.len());
-        nums.windows(k)
-            .into_iter()
-            .any(|s| s.into_iter().collect::<std::collections::HashSet<_>>().len() != k)
+        let mut seen: HashSet<i32> = HashSet::new();
+        let k = k as usize;
+        nums.iter().enumerate().any(|(i, x)| {
+            if seen.contains(x) {
+                true
+            } else {
+                seen.insert(*x);
+                if seen.len() > k {
+                    seen.remove(&nums[i - k]);
+                }
+                false
+            }
+        })
     }
 }
