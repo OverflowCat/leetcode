@@ -1,11 +1,14 @@
+use std::usize;
+
 struct Solution {}
 
 impl Solution {
     pub fn array_strings_are_equal(word1: Vec<String>, word2: Vec<String>) -> bool {
-        word1
-            .join("")
-            .bytes()
-            .zip(word2.join("").bytes())
-            .all(|(a, b)| a == b)   
+        word1.iter().map(|s| s.len()).sum::<usize>() == word2.iter().map(|s| s.len()).sum()
+            && word1
+                .join("")
+                .bytes()
+                .zip(word2.join("").bytes())
+                .all(|(a, b)| a == b)
     }
 }
