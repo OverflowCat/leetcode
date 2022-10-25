@@ -2,10 +2,10 @@ struct Solution {}
 
 impl Solution {
     pub fn max_length(arr: Vec<String>) -> i32 {
-        let mut count = 0;
+        let mut mlen = 0;
         for i in 0..2u32.pow(arr.len() as u32) {
             let mut used = [false; 26];
-            let mut deb = String::new();
+            let mut clen = 0;
             (0..32 - i.leading_zeros() as usize)
                 .filter(|j| i >> j & 1 == 1)
                 .all(|j| {
@@ -15,16 +15,13 @@ impl Solution {
                             return false;
                         }
                         used[letter] = true;
-                        deb.push(x as char);
+                        clen += 1;
                         return true;
                     })
                 })
-                .then(|| {
-                    println!("{}", deb);
-                    count += 1
-                });
+                .then(|| mlen = mlen.max(clen));
         }
-        count
+        mlen
     }
 }
 
