@@ -5,11 +5,11 @@ impl Solution {
             .zip(grow_time.into_iter())
             .collect::<Vec<_>>();
         a.sort_unstable_by_key(|v| -v.1);
-        a.into_iter()
-            .fold((0, 0), |(mut sow, bloom), (plant, grow)| {
-                sow += plant;
-                (sow, bloom.max(sow + grow))
-            })
-            .1
+        let (mut sow, mut bloom) = (0, 0);
+        for (p, g) in a {
+            sow += p;
+            bloom = bloom.max(g + sow);
+        }
+        bloom
     }
 }
