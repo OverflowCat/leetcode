@@ -1,4 +1,4 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet};
 
 fn main() {
     assert_eq!(
@@ -20,12 +20,12 @@ impl Solution {
     pub fn longest_palindrome(words: Vec<String>) -> i32 {
         let mut hm: HashMap<String, usize> = HashMap::with_capacity(words.len());
         let mut counter = 0;
-        let mut is_middle_not_used = true;
+        let mut palindromes = HashSet::new();
         words.into_iter().for_each(|w| {
             let rev = w.chars().rev().collect::<String>();
-            if is_middle_not_used && rev == w {
-                counter += w.len();
-                is_middle_not_used = true;
+            if rev == w {
+                *hm.entry(w).or_insert(0) += 1;
+                palindromes.insert(rev);
                 return;
             }
             let mut flag = 0u8;
@@ -36,7 +36,7 @@ impl Solution {
                     *count -= 1;
                     flag = 1;
                 }
-                counter += rev.len();
+                counter += 2 * rev.len();
             });
             match flag {
                 2 => {
@@ -48,6 +48,7 @@ impl Solution {
                 _ => {}
             }
         });
+        
         counter as i32
     }
 }
