@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 struct Node {
     has_word: bool,
     next: HashMap<u8, Node>,
@@ -17,7 +17,8 @@ impl Solution {
                 curr = curr
                     .next
                     .entry(b)
-                    .and_modify(|node| node.has_word = i == n)
+                    .and_modify(|node| node.has_word |= i == n)
+                    // 注意这里 |=，如果写成 = 的话，已经是 true 了的就会被覆盖掉。见第二个测试样例。
                     .or_insert(Node {
                         has_word: i == n,
                         next: Default::default(),
@@ -26,7 +27,7 @@ impl Solution {
         }
         let m = board.len();
         let n = board[0].len();
-        let mut res = vec![];
+        let mut res = HashSet::new();
         fn f(
             i: usize,
             j: usize,
@@ -34,7 +35,7 @@ impl Solution {
             board: &Vec<Vec<char>>,
             used: &mut Vec<Vec<bool>>,
             trie: &Node,
-            res: &mut Vec<String>,
+            res: &mut HashSet<String>,
         ) {
             if used[i][j] {
                 return;
@@ -43,20 +44,18 @@ impl Solution {
                 used[i][j] = true;
                 word.push(board[i][j]);
                 if x.has_word {
-                    res.push(word.clone()); // 揾到
+                    res.insert(word.clone()); // 揾到
                 }
                 if i > 0 {
                     f(i - 1, j, word, board, used, x, res);
                 }
-                let m = board.len() - 1;
-                let n = board[0].len() - 1;
-                if i < m {
+                if i < board.len() - 1 {
                     f(i + 1, j, word, board, used, x, res);
                 }
                 if j > 0 {
                     f(i, j - 1, word, board, used, x, res);
                 }
-                if j < n {
+                if j < board[0].len() - 1 {
                     f(i, j + 1, word, board, used, x, res);
                 }
                 word.pop();
@@ -69,7 +68,7 @@ impl Solution {
                 f(i, j, &mut String::new(), &board, &mut used, &trie, &mut res);
             }
         }
-        res
+        res.into_iter().collect()
     }
 }
 
@@ -83,5 +82,13 @@ fn main() {
         vec!['i', 'f', 'l', 'v'],
     ];
     let words = vec!["oath".into(), "pea".into(), "eat".into(), "rain".into()];
+    println!("{:?}", Solution::find_words(board, words));
+    let board = vec![
+        vec!['o', 'a', 'b', 'n'],
+        vec!['o', 't', 'a', 'e'],
+        vec!['a', 'h', 'k', 'r'],
+        vec!['a', 'f', 'l', 'v'],
+    ];
+    let words = vec!["oa".into(), "oaa".into()];
     println!("{:?}", Solution::find_words(board, words));
 }
