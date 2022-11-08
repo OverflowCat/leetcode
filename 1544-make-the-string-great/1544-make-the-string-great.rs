@@ -23,7 +23,8 @@ impl Solution {
                     j += 1;
                 }
             }
-            s.get_unchecked_mut(0..j).to_owned()
+            s.truncate(j);
+            s
         }
     }
     fn abs_diff<T: std::ops::Sub<Output = T> + Ord>(x: T, y: T) -> T {
