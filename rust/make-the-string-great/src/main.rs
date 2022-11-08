@@ -1,19 +1,31 @@
-use std::collections::LinkedList;
-
 const DIFF: u8 = b'a' - b'A';
 
 impl Solution {
-    pub fn make_good(s: String) -> String {
-        let li: LinkedList<u8> = LinkedList::from_iter(s.bytes().into_iter());
-        for slice in li.iter_mut().windows(2) {
-            if slice[0].abs_diff(slice[1]) == DIFF {
-                slice[0]
+    pub fn make_good(mut s: String) -> String {
+        unsafe {
+            let bytes = s.as_bytes_mut();
+            let mut j = 1;
+            let mut prev_i = bytes[0];
+            for i in 1..bytes.len() {
+                if bytes[i].abs_diff(prev_i) == DIFF {
+                    j -= 1;
+                } else {
+                    bytes[j] = bytes[i];
+                    prev_i = bytes[i];
+                    j += 1;
+                }
             }
+            println!("s is {}", s);
+            println!("j is {}", j);
+            s.get_unchecked_mut(0..j).to_owned()
         }
-        s
     }
 }
 
 struct Solution {}
 
-fn main() {}
+fn main() {
+    assert_eq!(Solution::make_good("leEeetcode".into()), "leetcode");
+    // l*eE*etcode leetcode
+    assert_eq!(Solution::make_good("abBAcC".into()), "");
+}
