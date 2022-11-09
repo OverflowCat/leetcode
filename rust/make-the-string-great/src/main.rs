@@ -23,15 +23,12 @@ impl Solution {
                     j += 1;
                 }
             }
-            s.get_unchecked_mut(0..j).to_owned()
+            s.truncate(j);
+            s
         }
     }
     fn abs_diff<T: std::ops::Sub<Output = T> + Ord>(x: T, y: T) -> T {
-        if x < y {
-            y - x
-        } else {
-            x - y
-        }
+        if x < y { y - x } else { x - y }
     }
 }
 
@@ -41,4 +38,5 @@ fn main() {
     assert_eq!(Solution::make_good("leEeetcode".into()), "leetcode");
     // l*eE*etcode leetcode
     assert_eq!(Solution::make_good("abBAcC".into()), "");
+    assert_eq!(Solution::make_good("nekohaSekAaAaaaaAAAAAKKKiIkkAAwwAAIinyaAY".into()), "nekohaSekAAKAAwwAAn");
 }
