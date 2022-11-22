@@ -13,12 +13,13 @@ impl Solution {
         dp[1] = 1;
         for i in 2..=n {
             let mut min = i32::MAX;
-            for j in &squares[..match squares.binary_search(&i) {
+            for j in &squares
+            /* [..match squares.binary_search(&i) {
                 Ok(x) => x + 1,
                 Err(x) => x,
-            }]
+            }] */
             {
-                // if *j > i { break; }
+                if *j > i { break; }
                 min = dp[(i - j) as usize].min(min);
             }
             dp[i as usize] = min + 1;
