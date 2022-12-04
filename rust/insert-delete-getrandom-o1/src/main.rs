@@ -29,9 +29,8 @@ where
     }
     fn remove(&mut self, elem: T) -> bool {
         if let Some(index) = self.map.remove(&elem) {
-            if index == 0 && self.vec.len() == 1 {
-                self.vec.clear();
-                self.map.clear();
+            if index == self.vec.len() - 1 {
+                self.vec.pop();
             } else {
                 self.map.insert(self.vec.last().unwrap().clone(), index);
                 self.vec.swap_remove(index);
@@ -43,6 +42,7 @@ where
     }
 }
 type RandomizedSet = VecSet<i32>;
+
 fn main() {
 {
     let mut randomizedSet = RandomizedSet::new();
