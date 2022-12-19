@@ -1,9 +1,9 @@
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        nodes = defaultdict(set)
+        nodes = defaultdict(list)
         for x in edges:
-          nodes[x[0]].add(x[1])
-          nodes[x[1]].add(x[0])
+          nodes[x[0]].append(x[1])
+          nodes[x[1]].append(x[0])
         visited = [False] * n
         def f(node):
           nonlocal destination
