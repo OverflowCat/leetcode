@@ -4,7 +4,7 @@ impl Solution {
             if i == graph.len() - 1 {
                 vec![vec![i as i32]]
             } else {
-                let mut res = vec![];
+                let mut res = Vec::with_capacity(graph[i].len());
                 for c in &graph[i] {
                     for mut p in f(*c as usize, graph) {
                         let mut new = Vec::with_capacity(p.len() + 1);
