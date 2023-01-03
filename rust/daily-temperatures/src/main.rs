@@ -2,8 +2,10 @@ impl Solution {
     pub fn daily_temperatures(mut temperatures: Vec<i32>) -> Vec<i32> {
         let (mut stack, n) = (vec![], temperatures.len());
         for i in 0..n {
+            // println!("i: {:?}", stack);
             while let Some(&j) = stack.last() {
                 if temperatures[j] < temperatures[i] {
+                    // dbg!(j, temperatures[j]);
                     temperatures[j] = (i - stack.pop().unwrap()) as i32;
                 } else {
                     break;
@@ -11,7 +13,14 @@ impl Solution {
             }
             stack.push(i);
         }
-        &mut temperatures[n - stack.len() - 1..].fill(0);
+        stack.into_iter().for_each(|x| {
+            temperatures[x] = 0;
+        });
         temperatures
     }
+}
+
+struct Solution;
+fn main() {
+    Solution::daily_temperatures(vec![55, 38, 53, 81, 61, 93, 97, 32, 43, 78]);
 }
