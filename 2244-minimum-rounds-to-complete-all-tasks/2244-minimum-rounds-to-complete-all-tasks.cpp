@@ -1,12 +1,12 @@
 #include <iostream>
 #include <vector>
-#include <map>
+#include <unordered_map>
 class Solution
 {
 public:
     int minimumRounds(std::vector<int> &tasks)
     {
-        std::map<int, uint32_t> hm;
+        std::unordered_map<int, uint32_t> hm;
         for (size_t i = 0; i < tasks.size(); i++)
         {
             auto count = hm.find(tasks[i]);
@@ -19,7 +19,9 @@ public:
         for (auto const &[_, v] : hm)
         {
             if (v == 1)
+            {
                 return -1;
+            }
             auto rem = v % 3;
             ans += v / 3;
             if (rem != 0)
