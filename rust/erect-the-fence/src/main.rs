@@ -4,6 +4,25 @@ struct Tree(i32, i32);
 impl Solution {
     #[inline]
     fn cross_product(x_1: i32, y_1: i32, x_2: i32, y_2: i32) -> i32 {
+        
+        
+        let a: i8  = -128;
+        let b: u8  = 128;
+        let c: i16 = -233;
+        let d: u16 = 233;
+        let e: i32 = 233;
+        let d: u32 = 233;
+        let e: i64 = 233;
+        let f: u64 = 233;
+        let g: i128 = 233;
+        let h: u128 = 233;
+        let i: usize = 233;
+        let j: bool = false;
+        let k: f32 = 233.;
+        let l: f64 = 233.;
+        let m: char = 233 as char;
+        
+        
         x_1 * y_2 - x_2 * y_1
     }
 

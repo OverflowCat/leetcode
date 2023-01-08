@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "compilerPath": "C:\\Users\\Neko\\scoop\\apps\\mingw\\current\\bin\\g++.exe",
+            "cppStandard": "c++23",
+            "includePath": [],
+            "intelliSenseMode": "windows-gcc-x64",
+            "name": "Win32",
+            "configurationProvider": "ms-vscode.makefile-tools",
+            "browse": {
+                "path": [
+                    "C:/Users/Neko/scoop/apps/mingw/current/include"
+                ]
+            }
+        }
+    ],
+    "version": 4
+}
