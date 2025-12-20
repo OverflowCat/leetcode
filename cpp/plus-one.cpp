@@ -7,22 +7,20 @@ class Solution
 public:
     vector<int> plusOne(vector<int> &digits)
     {
-        bool flag = false;
-        for (auto i = digits.size(); i != 0; --i)
+        bool flag = true;
+        for (auto i = digits.size() - 1; i != 0; --i)
         {
-            digits[i] += flag ? 2 : 1;
-            if (digits[i] > 9)
+            if (digits[i] == 9)
             {
-                digits[i] -= 10;
-                flag = true;
+                digits[i] = 0;
             }
             else
             {
+                digits[i] += 1;
                 flag = false;
+                break;
             }
         }
-        if (flag)
-            digits.insert(digits.begin(), 1);
-        return digits;
+        if (flag) digits.insert(digits.begin(), 1);
     }
 };
