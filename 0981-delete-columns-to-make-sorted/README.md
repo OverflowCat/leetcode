@@ -1,0 +1,1 @@
+<h2><a href="https://leetcode.cn/problems/delete-columns-to-make-sorted/description/?envType=daily-question&envId=2025-12-20">981. undefined</a></h2><h3>undefined</h3><hr>undefined
